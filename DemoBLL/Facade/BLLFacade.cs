@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using DemoDAL;
 using DemoDAL.Facade;
+using DemoBLL.Services;
 
 namespace DemoBLL.Facade
 {
@@ -15,6 +16,13 @@ namespace DemoBLL.Facade
                 ConnectionString = conf.GetConnectionString("DefaultConnection"),
                 Environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
             });
+        }
+
+        /*public IJokeService JokeService => 
+            new JokeService(facade);**/
+
+        public IJokeService JokeService {
+            get{ return new JokeService(facade); }
         }
     }
 }

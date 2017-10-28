@@ -3,8 +3,8 @@ namespace DemoDAL
 {
     public interface IUnitOfWork : IDisposable
     {
-        //ICustomerRepository CustomerRepository { get; }
-       
+        IJokeRepository JokeRepository { get; }
+
         int Complete();
     }
 }

@@ -1,13 +1,14 @@
 ﻿using System;
 using DemoDAL.Context;
+using DemoDAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace DemoDAL.UOW
 {
     public class UnitOfWork : IUnitOfWork
     {
-        // public ICustomerRepository CustomerRepository { get; internal set; }
-        private EASVContext context;
+        public IJokeRepository JokeRepository { get;  internal set; }
+        private EASVContext _context;
         private static DbContextOptions<EASVContext> optionsStatic;
            
         public UnitOfWork(DbOptions opt)
@@ -16,27 +17,27 @@ namespace DemoDAL.UOW
                 optionsStatic = new DbContextOptionsBuilder<EASVContext>()
                    .UseInMemoryDatabase("TheDB")
                    .Options;
-                context = new EASVContext(optionsStatic);
+                _context = new EASVContext(optionsStatic);
             }
             else{
                 var options = new DbContextOptionsBuilder<EASVContext>()
                 .UseSqlServer(opt.ConnectionString)
                     .Options;
-                context = new EASVContext(options);
+                _context = new EASVContext(options);
             }
 
-            //CustomerRepository = new CustomerRepository(context);
+            JokeRepository = new JokeRepository(_context);
         }
 
         public int Complete()
 		{
 			//The number of objects written to the underlying database.
-			return context.SaveChanges();
+            return _context.SaveChanges();
 		}
 
         public void Dispose()
         {
-            context.Dispose();
+            _context.Dispose();
         }
 
     }

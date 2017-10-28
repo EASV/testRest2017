@@ -3,6 +3,6 @@ namespace DemoBLL
 {
     public interface IBLLFacade
     {
-        //ICustomerService CustomerService { get { return new CustomerService(facade); }
+        IJokeService JokeService { get; }
     }
 }

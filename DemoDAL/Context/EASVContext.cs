@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DemoDAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DemoDAL.Context
 {
@@ -12,6 +13,6 @@ namespace DemoDAL.Context
         }
 
         //public DbSet<Entity> Entites { get; set; }
-       
+        public DbSet<Joke> Jokes { get; set; }
     }
 }
